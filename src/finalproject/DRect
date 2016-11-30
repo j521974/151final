@@ -1,0 +1,9 @@
+
+public class DRect extends DShape {
+
+	public DRect(DShapeModel model) {
+		super(model);
+		// TODO Auto-generated constructor stub
+	}
+
+}

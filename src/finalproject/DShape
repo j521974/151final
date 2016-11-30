@@ -1,0 +1,15 @@
+
+public class DShape {
+	//create a class to set model and store variables. 
+	public DShapeModel model;
+	
+	public DShape(DShapeModel model){
+		this.model = model;
+	}
+	public void setModel(DShapeModel model){
+		this.model = model;
+	}
+	public DShapeModel getModel(){
+		return this.model;
+	}
+}

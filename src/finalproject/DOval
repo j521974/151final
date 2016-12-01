@@ -7,8 +7,9 @@ public class DOval extends DShape {
 		// TODO Auto-generated constructor stub
 	}
 	//draw method
-	public void draw(Graphics x){
-		x.setColor(model.getColor());
-		x.fillOval(model.getX(), model.getY(), model.getWidth(), model.getHeight());
+	public void draw(Graphics g){
+		g.setColor(model.getColor());
+		g.fillOval(model.getX(), model.getY(), model.getWidth(), model.getHeight());
 	}
+
 }

@@ -1,9 +1,8 @@
-package finalproject;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Queue;
@@ -21,14 +20,19 @@ public class Canvas extends JPanel{
         this.setBackground(Color.PINK);
 	}
 	
-	public void paintComponent(){
+	public void paintComponent(Graphics g){
 		for(DShape shape: shapeList){
-			shape.draw();
+			if(shape instanceof DRect){
+				DRect rectangle = new DRect(shape.model);
+			}
+			else if(shape instanceof DOval){
+				DOval oval = new DOval(shape.model);
+			}
 		}
 	}
 	
-	public void addShape(DShapeModel model){
-
+	public void addShape(DShape model){
+		shapeList.add(model);
 	}
 
 

@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 
 public class DOval extends DShape {
 
@@ -5,5 +6,9 @@ public class DOval extends DShape {
 		super(model);
 		// TODO Auto-generated constructor stub
 	}
-
+	//draw method
+	public void draw(Graphics x){
+		x.setColor(model.getColor());
+		x.fillOval(model.getX(), model.getY(), model.getWidth(), model.getHeight());
+	}
 }

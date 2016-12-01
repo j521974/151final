@@ -1,3 +1,4 @@
+import com.sun.prism.Graphics;
 
 public class DRect extends DShape {
 
@@ -5,5 +6,11 @@ public class DRect extends DShape {
 		super(model);
 		// TODO Auto-generated constructor stub
 	}
-
+	//Each shape should have a draw(Graphics g)method 
+	//where it draws itself. The canvas can loop through all the shapes, 
+	//sending each the draw()message.
+	public void draw(Graphics x){
+		((DShapeModel) x).setColor(model.getColor());
+		x.fillRect(model.getX(), model.getY(), model.getWidth(), model.getHeight());
+	}
 }

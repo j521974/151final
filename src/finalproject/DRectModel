@@ -1,0 +1,12 @@
+import java.awt.Graphics;
+
+public class DRectModel extends DShapeModel {
+	public DRectModel(){
+		
+	}
+	public static void knobSelected(Graphics g){
+		if(DShape.selected){
+			
+		}
+	}
+}

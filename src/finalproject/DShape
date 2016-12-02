@@ -1,7 +1,12 @@
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.util.LinkedList;
+import java.util.List;
 
 public class DShape {
 	//create a class to set model and store variables. 
 	public DShapeModel model;
+	public static boolean selected = false;
 	
 	public DShape(DShapeModel model){
 		this.model = model;
@@ -11,5 +16,14 @@ public class DShape {
 	}
 	public DShapeModel getModel(){
 		return this.model;
+	}
+	public List<Point> getKnobs(){
+		LinkedList<Point> points = new LinkedList<Point>();
+		Rectangle bounds = getModel().getBounds();
+		points.add(new Point(bounds.x+1,bounds.y+1));
+		points.add(new Point(bounds.x+1,bounds.y+bounds.height-1));
+		points.add(new Point(bounds.x+bounds.width-1,bounds.y+bounds.height-1));
+		points.add(new Point(bounds.x+bounds.width-1,bounds.y+1));
+		return points;
 	}
 }

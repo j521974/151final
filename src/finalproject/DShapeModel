@@ -15,14 +15,28 @@ public class DShapeModel {
 	//conceptual "bounds" rectangle defined 
 	//by 4 ints: x, y, width, and height, and a Color.
 	public DShapeModel(){
-		this.width = 100;
-		this.height = 100;
 		this.color = Color.GRAY;
-		this.x = new Random().nextInt(900);
-		this.y = new Random().nextInt(650);
 		bounds = new Rectangle(0,0,0,0);
 		rectangle = new Rectangle(x,y,width,height);
+	}
+	public static interface ModelListerner{
+		public void modelChanged(DShapeModel model);
+	}
+	//Enhance the DShapeModelso that it keeps a list of listeners
+	//, and provide methods for the listeners to be able to 
+	//add and remove themselves from the list. 
+	public void addChangeListener(ModelListener listener){
+		modelChangeListeners.add(listener);
+	}
+	public void removeChangeListener(ModelListener listener){
+		modelChangeListeners.remove(listener);
+	}
+	//notification
+	public void notification(){
+		for(ModelListener l: modelChangeListeners){
+			l.modelChanged(this);
 		}
+	}
 	public void setWidth(int width){
 		this.width = width;
 	}
@@ -47,6 +61,8 @@ public class DShapeModel {
 	public int getY(){
 		return this.y;
 	}
+	//loop through its listeners, and send the 
+	//modelChanged()notification to each listener.
 	public void setColor(Color color){
 		this.color = color;
 	}

@@ -17,36 +17,4 @@ public class DShape {
 	public DShapeModel getModel(){
 		return this.model;
 	}
-	/**
-	returns a list of four Point objects, with each 
-	x,y point being the pixel just inside the four 
-	corners of the shape bounds rectangle.
-	*/
-	//need to understand this method
-	public List<Point> getKnobs(){
-		LinkedList<Point> points = new LinkedList<Point>();
-		Rectangle bounds = getModel().getBounds();
-		points.add(new Point(bounds.x+1,bounds.y+1));
-		points.add(new Point(bounds.x+1,bounds.y+bounds.height-1));
-		points.add(new Point(bounds.x+bounds.width-1,bounds.y+bounds.height-1));
-		points.add(new Point(bounds.x+bounds.width-1,bounds.y+1));
-		return points;
 	}
-	/** 
-	 * The initial click is on some knob/point ­­ call t hat the "moving" point.
-	 * From the list of knobs, find the point in the opp osite corner from the 
-	 * moving point. Call that the "anchor" point, and remember it for the duration 
-	 * of the mouse drag.
-	 * During the drag, update the moving point while the anchor point does not move.
-	 * @param initial
-	 * @param anchor
-	 * @param drag
-	 */
-	public void resizeKnob(Point initial, Point anchor, Point PointDrag){
-		Rectangle r = new Rectangle();
-		r.width = (anchor.x-initial.x)+PointDrag.x;
-		r.height = (anchor.y-initial.y)+PointDrag.y;
-		Point newPo = new Point(initial.x+PointDrag.x,initial.y+PointDrag.y);
-		
-	}
-}

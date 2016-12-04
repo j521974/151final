@@ -15,11 +15,7 @@ public class DShapeModel {
 	//conceptual "bounds" rectangle defined 
 	//by 4 ints: x, y, width, and height, and a Color.
 	public DShapeModel(){
-		this.width = 100;
-		this.height = 100;
 		this.color = Color.GRAY;
-		this.x = new Random().nextInt(900);
-		this.y = new Random().nextInt(650);
 		bounds = new Rectangle(0,0,0,0);
 		rectangle = new Rectangle(x,y,width,height);
 	}

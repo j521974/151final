@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class DOval extends DShape {
 
@@ -9,7 +10,8 @@ public class DOval extends DShape {
 	//draw method
 	public void draw(Graphics g){
 		g.setColor(model.getColor());
-		g.fillOval(model.getX(), model.getY(), model.getWidth(), model.getHeight());
+		Rectangle r = getModel().getBounds();
+		g.fillOval(r.x, r.y, r.width, r.height);
 	}
 
 }

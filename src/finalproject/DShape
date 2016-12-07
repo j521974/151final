@@ -1,20 +1,85 @@
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DShape {
-	//create a class to set model and store variables. 
-	public DShapeModel model;
-	public static boolean selected = false;
+public abstract class DShape {
+	protected DShapeModel model;
+	abstract void draw(Graphics g);
+	public static int knobSize = 8;
 	
-	public DShape(DShapeModel model){
-		this.model = model;
-	}
 	public void setModel(DShapeModel model){
 		this.model = model;
 	}
 	public DShapeModel getModel(){
-		return this.model;
+		return model;
 	}
+	/**
+	 * Modify the canvas/shape draw code so the selected shape has 
+	 * black squares 9 pixels (define in a constant) on a side, centered 
+	 * above each knob point
+	 */
+	public void drawKnob(Graphics g){
+		g.setColor(Color.BLACK);
+		Collection<Point> p = getKnobs();
+		for(Point point:p){
+			Rectangle r = new Rectangle(point.x-(knobSize/2),point.y-(knobSize/2),
+					knobSize,knobSize);
+			g.fillRect(r.x, r.y, r.width, r.height);
+		}
 	}
+
+	/**
+	 *  Implement a getKnobs()method in DShapethat returns a list of four 
+	 *  Point objects, with each x,y point being the pixel just inside the 
+	 *  four corners of the shape bounds rectangle.
+	 */
+	public List<Point> getKnobs(){
+		LinkedList<Point> p = new LinkedList<Point>();
+		Rectangle bounds = getModel().getBounds();
+		//create 4 points on the 4 corners of the shape for rectangle and oval
+		p.add(new Point(bounds.x+1,bounds.y+1));
+		p.add(new Point(bounds.x+1,bounds.y+1+bounds.height-1));
+		p.add(new Point(bounds.x+bounds.width-1,bounds.y+bounds.height-1));
+		p.add(new Point(bounds.x+bounds.width-1,bounds.y+1));
+		return p;
+	}
+	/**
+	 * The initial click is on some knob/point ­­ call t hat the "moving" point.
+	 * From the list of knobs, find the point in the opposite corner from the 
+	 * moving point. Call that the "anchor" point
+	 * • During the drag, update the moving point while the anchor point does 
+	 * not move. Now consider the rectangle defined by anchor point in its original
+	 *  location and the moving point wherever it is now. That rectangle should be 
+	 *  the new bounds rectangle for the shape.
+	 * setter calls sent to the model to change the bounds rectangle.
+	 */
+	public void Resize(Point initial, Point anchor, Point drag){
+		Rectangle b = new Rectangle();
+		b.width = (anchor.x - initial.x) + drag.x;
+		b.height = (anchor.y - initial.y) + drag.y;
+		//find the new position as mouse moving
+		Point newPo = new Point(initial.x + drag.x,initial.y + drag.y);
+		//setter call to change the bounds
+		getModel().setBounds(RectanglePoints(anchor,newPo));
+	}
+	public static Rectangle RectanglePoints(Point a, Point b){
+		Rectangle r = new Rectangle();
+		if(a.x>b.x){
+			r.x = b.x;
+		}else{
+			r.x = a.x;
+		}
+		if(a.y>b.y){
+			r.y = b.y;
+		}else{
+			r.y = a.y;
+		}
+		r.width = Math.abs(b.x - a.x);
+		r.height = Math.abs(b.y - a.y);
+		return r;
+	}
+}

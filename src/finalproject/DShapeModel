@@ -1,1 +1,82 @@
 
+import java.awt.Color;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.util.Collection;
+import java.util.LinkedList;
+
+public class DShapeModel {
+	public Rectangle bounds;
+	public Color color;
+	public transient Collection<ModelListener> ModelChanged;
+	
+	/**
+	 * DShapeModel superclass should store a conceptual "bounds" rectangle 
+	 * defined by 4 ints: x, y, width, and height, and a Color.
+	 * he models should start out with all the ints at zero, and the color at
+	 * Color.GRAY.
+	 */
+	public DShapeModel(){
+		bounds = new Rectangle(0,0,0,0);
+		color = Color.GRAY;
+		ModelChanged = new LinkedList<ModelListener>();
+	}
+	public static interface ModelListener {
+		public void modelChanged(DShapeModel model);
+	}
+	/**
+	 * You will need a method like shape.getBounds()to ask each shape 
+	 * its rectangle boundary. 
+	 */
+	public void setBounds(Rectangle bounds){
+		this.bounds = bounds;
+		if(this.bounds.equals(bounds)==false){
+			notification();
+		}
+	}
+	public Rectangle getBounds(){
+		return bounds;
+	}
+	/**
+	 * provide methods for the listeners to be able to add and remove themselves 
+	 * from the list. When the model changes, in a setter like setColor(), it 
+	 * should loop through its listeners, and send the modelChanged()notification 
+	 * to each listener.
+	 */
+	public void addChangedListener(ModelListener listener){
+		ModelChanged.add(listener);
+	}
+	public boolean removeChangedListener(ModelListener listener){
+		return ModelChanged.remove(listener);
+	}
+	/**
+	 * When the shape gets the modelChanged()notification, the shape needs to
+	 *  re­draw itself on the canvas with the changed appearance.
+	 */
+	public void notification(){
+		for(ModelListener l: ModelChanged){
+			l.modelChanged(this);
+		}
+	}
+	public Point getLocation(){
+		return bounds.getLocation();
+	}
+	public void setLocation(Point point) {
+		bounds.x = point.x;
+		bounds.y = point.y;
+		notification();
+	}
+	/**
+	 * the setColor()message on the model should automatically trigger a 
+	 * notification that ultimately gets the shape to draw in the new color. 
+	 */
+	public void setColor(Color color){
+		this.color = color;
+		if(this.color.equals(color)==false){
+			notification();
+		}
+	}
+	public Color getColor(){
+		return color;
+	}
+}
